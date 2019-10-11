@@ -6,6 +6,7 @@
     <modules>
         <module>discovery</module>
         <module>gateway</module>
+        <module>services</module>
     </modules>
     <groupId>com.withyou</groupId>
     <artifactId>door</artifactId>

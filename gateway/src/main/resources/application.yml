@@ -1,0 +1,17 @@
+server:
+    port: 8081
+spring:
+    application:
+        name: gateway
+    cloud:
+        gateway:
+            routes:
+            -   filters:
+                - StripPrefix=0
+                id: demo
+                predicates:
+                -   Path=/test/**
+                uri: lb://demo
+        nacos:
+            discovery:
+                server-addr: 127.0.0.1:8848
