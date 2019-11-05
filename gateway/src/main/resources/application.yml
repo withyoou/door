@@ -12,6 +12,12 @@ spring:
                 predicates:
                 -   Path=/test/**
                 uri: lb://demo
+            -   id: auth
+                filters:
+                -   StripPrefix=0
+                predicates:
+                -   Path=/auth/**
+                uri: lb://auth
         nacos:
             discovery:
                 server-addr: 127.0.0.1:8848

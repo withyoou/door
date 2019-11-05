@@ -7,6 +7,7 @@
         <module>discovery</module>
         <module>gateway</module>
         <module>services</module>
+        <module>auth</module>
     </modules>
     <groupId>com.withyou</groupId>
     <artifactId>door</artifactId>
