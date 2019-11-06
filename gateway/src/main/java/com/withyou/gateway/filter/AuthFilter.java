@@ -25,7 +25,8 @@ public class AuthFilter implements GlobalFilter, Ordered {
     private AuthClient authClient;
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        if (exchange.getRequest().getPath().equals("/auth/login")) {
+        if (("/auth/login").equals(exchange.getRequest().getPath().toString())) {
+            log.error("gateway filter return ... url: {}", exchange.getRequest().getPath());
             return chain.filter(exchange);
         }
         String token = "";
@@ -36,7 +37,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
                token = headers.get(0);
             }
         }
-        log.info("gateway filter ... token: {}", token);
+        log.info("gateway filter ... url: {}, token: {}", exchange.getRequest().getPath(), token);
         AuthUser authUser = authClient.getRolesByUser(token);
         log.info("gateway get user from auth : {}", authUser.toString());
         ServerHttpRequest request = exchange.getRequest().mutate().header("user", new String[]{authUser.getUser()}).header("roles", new String[]{authUser.getRoles()}).build();

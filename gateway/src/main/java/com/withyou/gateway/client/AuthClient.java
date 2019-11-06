@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 
 
-@FeignClient("auth")
+@FeignClient("S-AUTH")
 public interface AuthClient {
 
     @GetMapping("/auth/user")

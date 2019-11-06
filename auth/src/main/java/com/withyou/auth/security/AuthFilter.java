@@ -31,7 +31,7 @@ public class AuthFilter extends AbstractAuthenticationProcessingFilter {
 
     @Autowired
     protected AuthFilter(AuthProvider authProvider, AuthSuccessful authSuccessful) {
-        super("/auth/login");
+        super("/login");
         setAuthenticationManager(new ProviderManager(Collections.singletonList(authProvider)));
         setAuthenticationSuccessHandler(authSuccessful);
     }
