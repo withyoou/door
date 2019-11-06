@@ -1,11 +1,12 @@
 package com.withyou.auth.demo;
 
-import com.withyou.auth.security.domain.LoginForm;
+import com.withyou.auth.security.domain.AuthUser;
 import com.withyou.auth.util.JwtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,12 +17,6 @@ public class DemoRoute {
     @Autowired
     private JwtUtil jwtUtil;
 
-//    @PostMapping("/login")
-//    public String login(@RequestBody LoginForm loginForm) {
-//        log.info("login ...");
-//        return jwtUtil.createToken("123");
-//    }
-
     @Secured({"ROLE_A"})
     @GetMapping("/demo")
     public String demo() {
@@ -29,7 +24,13 @@ public class DemoRoute {
     }
 
     @GetMapping("/allow")
-    public String permit() {
-        return "hello";
+    public String permit(@RequestParam("token") String token) {
+        return jwtUtil.parseToken(token);
+    }
+
+    @GetMapping("/user")
+    public AuthUser getAuthUser() {
+        AuthUser authUser = (AuthUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return authUser;
     }
 }

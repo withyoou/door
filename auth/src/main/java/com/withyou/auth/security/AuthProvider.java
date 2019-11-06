@@ -1,5 +1,6 @@
 package com.withyou.auth.security;
 
+import com.withyou.auth.security.domain.AuthUser;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,7 +24,7 @@ public class AuthProvider implements AuthenticationProvider {
         String username = (String) token.getPrincipal();
         String password = (String) token.getCredentials();
         List<GrantedAuthority> roles = new ArrayList<>();
-        return new UsernamePasswordAuthenticationToken(username, password, roles);
+        return new UsernamePasswordAuthenticationToken(new AuthUser(username, "ROLE_A,ROLE_B"), null, roles);
     }
 
     @Override

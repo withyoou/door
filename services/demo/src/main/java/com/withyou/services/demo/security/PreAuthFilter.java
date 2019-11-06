@@ -1,5 +1,6 @@
-package com.withyou.auth.security;
+package com.withyou.services.demo.security;
 
+import com.withyou.services.demo.domain.AuthUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.util.StringUtils;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @Author admin
@@ -28,18 +30,13 @@ public class PreAuthFilter extends AbstractPreAuthenticatedProcessingFilter {
     @Override
     protected Object getPreAuthenticatedPrincipal(HttpServletRequest httpServletRequest) {
         log.info("pre auth ... {}", httpServletRequest.getServletPath());
-        String headerToken = httpServletRequest.getHeader("token");
-        if (StringUtils.isEmpty(headerToken)) {
-            Cookie[] cookies = httpServletRequest.getCookies();
-            if (null == cookies) {
-                return null;
-            }
-            return Arrays.stream(httpServletRequest.getCookies())
-                    .filter(c -> "token".equals(c.getName()))
-                    .map(Cookie::getValue)
-                    .findFirst().orElse(null);
+        String roles = httpServletRequest.getHeader("roles");
+        String user = httpServletRequest.getHeader("user");
+        log.info("pre auth ... user: {}, role: {}", user, roles);
+        if (StringUtils.isEmpty(roles) || StringUtils.isEmpty(user)) {
+            return null;
         }
-        return headerToken;
+        return new AuthUser(user, roles);
     }
 
     @Override

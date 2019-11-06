@@ -30,9 +30,10 @@ public class AuthFilter extends AbstractAuthenticationProcessingFilter {
     private Logger log = LoggerFactory.getLogger(AuthFilter.class);
 
     @Autowired
-    protected AuthFilter(AuthProvider authProvider) {
+    protected AuthFilter(AuthProvider authProvider, AuthSuccessful authSuccessful) {
         super("/auth/login");
         setAuthenticationManager(new ProviderManager(Collections.singletonList(authProvider)));
+        setAuthenticationSuccessHandler(authSuccessful);
     }
 
     @Override
