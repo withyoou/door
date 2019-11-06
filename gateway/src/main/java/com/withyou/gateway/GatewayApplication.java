@@ -10,8 +10,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @Date 2019-10-09 15:20
  **/
 @SpringBootApplication
-@EnableDiscoveryClient()
 @EnableFeignClients(basePackages = "com.withyou.gateway.client")
+@EnableDiscoveryClient
 public class GatewayApplication {
 
     public static void main(String[] args) {

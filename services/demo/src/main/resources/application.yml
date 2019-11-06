@@ -3,11 +3,14 @@ server:
 spring:
     application:
         name: demo
-    cloud:
-        nacos:
-            discovery:
-                server-addr: 127.0.0.1:8848
 logging:
     level:
         com.withyou.services.demo: debug
         org.springframework.security: debug
+
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://127.0.0.1:8761/eureka/
+    instance:
+        prefer-ip-address: true
