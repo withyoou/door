@@ -1,7 +1,9 @@
 package com.withyou.services.demo.domain.entity;
 
+import javax.persistence.Id;
+
 public class Demo {
-    @
+    @Id
     private Long id;
     private String name;
 
