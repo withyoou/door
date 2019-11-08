@@ -1,0 +1,27 @@
+server:
+    port: 8082
+spring:
+    datasource:
+        driver-class-name: org.h2.Driver
+        url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;MODE=mysql
+        username:
+        password:
+    application:
+        name: S-DEMO
+    liquibase:
+      change-log: classpath:/db/changelog/master.xml
+logging:
+    level:
+        com.withyou.services.demo: debug
+        org.springframework.security: debug
+
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://127.0.0.1:8761/eureka/
+    instance:
+        prefer-ip-address: true
+
+mybatis:
+    mapper-locations: classpath:mapper/*.xml
+    type-aliases-package: com.withyou.services.demo.domain.entity
