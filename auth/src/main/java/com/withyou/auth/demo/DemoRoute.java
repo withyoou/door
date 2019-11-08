@@ -9,6 +9,11 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+
+/**
+ * @author jeremy.zhao
+ */
 @RestController
 @RequestMapping("/auth")
 public class DemoRoute {
@@ -32,5 +37,17 @@ public class DemoRoute {
     public AuthUser getAuthUser() {
         AuthUser authUser = (AuthUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return authUser;
+    }
+
+    @GetMapping("/token")
+    public String getInnerToken() {
+        AuthUser authUser = (AuthUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return jwtUtil.createToken(authUser.getUser(), Arrays.asList(authUser.getRoles().split(",")));
+    }
+
+    @GetMapping("/roles")
+    public String getRoles() {
+        AuthUser authUser = (AuthUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return authUser.getRoles();
     }
 }

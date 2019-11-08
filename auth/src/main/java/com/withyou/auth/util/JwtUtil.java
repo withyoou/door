@@ -21,8 +21,6 @@ public class JwtUtil {
 
     private String tokenSecret = "123456";
 
-    private String innerTokenSecret = "654321";
-
     public String createToken(String user) {
         return Jwts.builder()
                 .setId(user)
@@ -36,7 +34,7 @@ public class JwtUtil {
         return claims.getId();
     }
 
-    public String createInnerToken(String user, List<String> roles) {
+    public String createToken(String user, List<String> roles) {
         String roleStr;
         if (null != roles && roles.size() > 0) {
             roleStr = String.join(",", roles);
@@ -49,7 +47,7 @@ public class JwtUtil {
                 .setId(user)
                 .setClaims(claims)
                 .setExpiration(DateTime.now().plusHours(2).toDate())
-                .signWith(SignatureAlgorithm.HS256, innerTokenSecret.getBytes())
+                .signWith(SignatureAlgorithm.HS256, tokenSecret.getBytes())
                 .compact();
     }
 }
