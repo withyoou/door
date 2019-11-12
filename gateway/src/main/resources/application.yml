@@ -7,10 +7,10 @@ spring:
         gateway:
             routes:
             -   filters:
-                - StripPrefix=0
+                - StripPrefix=1
                 id: S-DEMO
                 predicates:
-                -   Path=/test/**
+                -   Path=/demo/**
                 uri: lb://S-DEMO
             -   id: S-AUTH
                 filters:
